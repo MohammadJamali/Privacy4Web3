@@ -1,0 +1,16 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "AIChat",
+  "sourceName": "contracts/Chat.sol",
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    }
+  ],
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea26469706673582212201dde722335ff96c61e98b424cafa1034ce4f29eb66b9c8ead9db2a65421cf03764736f6c63430008140033",
+  "deployedBytecode": "0x6080604052600080fdfea26469706673582212201dde722335ff96c61e98b424cafa1034ce4f29eb66b9c8ead9db2a65421cf03764736f6c63430008140033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}
