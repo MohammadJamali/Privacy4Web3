@@ -1,6 +1,6 @@
 import { hexlify } from "ethers";
 import { randomBytes } from "ethers/crypto";
-import { artifacts, ethers } from "hardhat";
+import { ethers } from "hardhat";
 import { expect } from "chai";
 import { AIChat } from "../typechain-types";
 
