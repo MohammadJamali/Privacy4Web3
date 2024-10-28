@@ -11,6 +11,9 @@ importers:
       '@nomicfoundation/hardhat-toolbox':
         specifier: ^5.0.0
         version: 5.0.0(gtu4yzq26jqdzrzytdyw5ezug4)
+      '@nomiclabs/hardhat-ethers':
+        specifier: ^2.2.3
+        version: 2.2.3(ethers@6.13.4)(hardhat@2.22.15(ts-node@10.9.2(@types/node@22.8.1)(typescript@5.6.3))(typescript@5.6.3))
       '@oasisprotocol/sapphire-contracts':
         specifier: ^0.2.11
         version: 0.2.11
@@ -355,6 +358,12 @@ packages:
   '@nomicfoundation/solidity-analyzer@0.1.2':
     resolution: {integrity: sha512-q4n32/FNKIhQ3zQGGw5CvPF6GTvDCpYwIf7bEY/dZTZbgfDsHyjJwURxUJf3VQuuJj+fDIFl4+KkBVbw4Ef6jA==}
     engines: {node: '>= 12'}
+
+  '@nomiclabs/hardhat-ethers@2.2.3':
+    resolution: {integrity: sha512-YhzPdzb612X591FOe68q+qXVXGG2ANZRvDo0RRUtimev85rCrAlv/TLMEZw5c+kq9AbzocLTVX/h2jVIFPL9Xg==}
+    peerDependencies:
+      ethers: ^5.0.0
+      hardhat: ^2.0.0
 
   '@oasisprotocol/deoxysii@0.0.5':
     resolution: {integrity: sha512-a6wYPjk8ALDIiQW/971AKOTSTY1qSdld+Y05F44gVZvlb3FOyHfgbIxXm7CZnUG1A+jK49g5SCWYP+V3/Tc75Q==}
@@ -2622,6 +2631,11 @@ snapshots:
       '@nomicfoundation/solidity-analyzer-linux-x64-gnu': 0.1.2
       '@nomicfoundation/solidity-analyzer-linux-x64-musl': 0.1.2
       '@nomicfoundation/solidity-analyzer-win32-x64-msvc': 0.1.2
+
+  '@nomiclabs/hardhat-ethers@2.2.3(ethers@6.13.4)(hardhat@2.22.15(ts-node@10.9.2(@types/node@22.8.1)(typescript@5.6.3))(typescript@5.6.3))':
+    dependencies:
+      ethers: 6.13.4
+      hardhat: 2.22.15(ts-node@10.9.2(@types/node@22.8.1)(typescript@5.6.3))(typescript@5.6.3)
 
   '@oasisprotocol/deoxysii@0.0.5':
     dependencies:

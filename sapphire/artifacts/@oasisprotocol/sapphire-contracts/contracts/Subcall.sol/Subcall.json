@@ -1,0 +1,284 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "Subcall",
+  "sourceName": "@oasisprotocol/sapphire-contracts/contracts/Subcall.sol",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "uint64",
+          "name": "status",
+          "type": "uint64"
+        },
+        {
+          "internalType": "string",
+          "name": "data",
+          "type": "string"
+        }
+      ],
+      "name": "AccountsTransferError",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint64",
+          "name": "status",
+          "type": "uint64"
+        },
+        {
+          "internalType": "string",
+          "name": "data",
+          "type": "string"
+        }
+      ],
+      "name": "ConsensusDelegateError",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint64",
+          "name": "status",
+          "type": "uint64"
+        },
+        {
+          "internalType": "string",
+          "name": "data",
+          "type": "string"
+        }
+      ],
+      "name": "ConsensusTakeReceiptError",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint64",
+          "name": "status",
+          "type": "uint64"
+        },
+        {
+          "internalType": "string",
+          "name": "data",
+          "type": "string"
+        }
+      ],
+      "name": "ConsensusUndelegateError",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint64",
+          "name": "status",
+          "type": "uint64"
+        },
+        {
+          "internalType": "string",
+          "name": "data",
+          "type": "string"
+        }
+      ],
+      "name": "ConsensusWithdrawError",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint64",
+          "name": "",
+          "type": "uint64"
+        }
+      ],
+      "name": "CoreCallDataPublicKeyError",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint64",
+          "name": "",
+          "type": "uint64"
+        }
+      ],
+      "name": "CoreCurrentEpochError",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidKey",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "InvalidLength",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidMap",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidReceiptId",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint8",
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "name": "InvalidUintPrefix",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint8",
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "name": "InvalidUintSize",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "MissingKey",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint64",
+          "name": "receiptId",
+          "type": "uint64"
+        }
+      ],
+      "name": "ParseReceiptError",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "RoflOriginNotAuthorizedForApp",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "SubcallError",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "TokenNameTooLong",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "ValueOutOfRange",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "result",
+          "type": "bytes"
+        },
+        {
+          "internalType": "uint256",
+          "name": "offset",
+          "type": "uint256"
+        }
+      ],
+      "name": "_parseCBORUint",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "newOffset",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "value",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "result",
+          "type": "bytes"
+        },
+        {
+          "internalType": "uint256",
+          "name": "offset",
+          "type": "uint256"
+        }
+      ],
+      "name": "_parseCBORUint128",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "newOffset",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint128",
+          "name": "value",
+          "type": "uint128"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "result",
+          "type": "bytes"
+        },
+        {
+          "internalType": "uint256",
+          "name": "offset",
+          "type": "uint256"
+        }
+      ],
+      "name": "_parseCBORUint64",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "newOffset",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint64",
+          "name": "value",
+          "type": "uint64"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x6104bc61003a600b82828239805160001a60731461002d57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe730000000000000000000000000000000000000000301460806040526004361061004b5760003560e01c806307099c9c146100505780630eb503ca1461008657806321d0f1e4146100ae575b600080fd5b61006361005e366004610349565b6100de565b6040805192835267ffffffffffffffff9091166020830152015b60405180910390f35b610099610094366004610349565b610126565b6040805192835260208301919091520161007d565b6100c16100bc366004610349565b6102f7565b604080519283526001600160801b0390911660208301520161007d565b60008060006100ed8585610126565b909350905067ffffffffffffffff81111561011b57604051634eb4f9fb60e01b815260040160405180910390fd5b809150509250929050565b600080600084848151811061013d5761013d6103fe565b016020015160f81c90506000601782116101695761015c85600161042a565b93505060ff1690506102f0565b8160ff166058036101ad578561017e86610443565b95508581518110610191576101916103fe565b016020015160f81c9050846101a581610443565b955050610297565b604080831690036101ed5785856101c381610443565b9650815181106101d5576101d56103fe565b0160200151604060f89190911c1860ff169050610297565b60108083169003610279578160ff1660180361020b57506001610267565b8160ff1660190361021e57506002610267565b8160ff16601a0361023157506004610267565b8160ff16601b0361024457506008610267565b60405163f32e6aa360e01b815260ff831660048201526024015b60405180910390fd5b61027260018661042a565b9450610297565b60405163873b12ed60e01b815260ff8316600482015260240161025e565b60208111156102bc5760405163c67eee4b60e01b81526004810182905260240161025e565b8585016020015192506102d081600861045c565b6102dc90610100610473565b9290921c916102eb818661042a565b935050505b9250929050565b60008060006103068585610126565b90935090506001600160801b0381111561011b57604051634eb4f9fb60e01b815260040160405180910390fd5b634e487b7160e01b600052604160045260246000fd5b6000806040838503121561035c57600080fd5b823567ffffffffffffffff8082111561037457600080fd5b818501915085601f83011261038857600080fd5b81358181111561039a5761039a610333565b604051601f8201601f19908116603f011681019083821181831017156103c2576103c2610333565b816040528281528860208487010111156103db57600080fd5b826020860160208301376000602093820184015298969091013596505050505050565b634e487b7160e01b600052603260045260246000fd5b634e487b7160e01b600052601160045260246000fd5b8082018082111561043d5761043d610414565b92915050565b60006001820161045557610455610414565b5060010190565b808202811582820484141761043d5761043d610414565b8181038181111561043d5761043d61041456fea2646970667358221220170ccae283ce67266cede162e62521d8ccac74bd743703be8a7cb7d96d64a0c864736f6c63430008140033",
+  "deployedBytecode": "0x730000000000000000000000000000000000000000301460806040526004361061004b5760003560e01c806307099c9c146100505780630eb503ca1461008657806321d0f1e4146100ae575b600080fd5b61006361005e366004610349565b6100de565b6040805192835267ffffffffffffffff9091166020830152015b60405180910390f35b610099610094366004610349565b610126565b6040805192835260208301919091520161007d565b6100c16100bc366004610349565b6102f7565b604080519283526001600160801b0390911660208301520161007d565b60008060006100ed8585610126565b909350905067ffffffffffffffff81111561011b57604051634eb4f9fb60e01b815260040160405180910390fd5b809150509250929050565b600080600084848151811061013d5761013d6103fe565b016020015160f81c90506000601782116101695761015c85600161042a565b93505060ff1690506102f0565b8160ff166058036101ad578561017e86610443565b95508581518110610191576101916103fe565b016020015160f81c9050846101a581610443565b955050610297565b604080831690036101ed5785856101c381610443565b9650815181106101d5576101d56103fe565b0160200151604060f89190911c1860ff169050610297565b60108083169003610279578160ff1660180361020b57506001610267565b8160ff1660190361021e57506002610267565b8160ff16601a0361023157506004610267565b8160ff16601b0361024457506008610267565b60405163f32e6aa360e01b815260ff831660048201526024015b60405180910390fd5b61027260018661042a565b9450610297565b60405163873b12ed60e01b815260ff8316600482015260240161025e565b60208111156102bc5760405163c67eee4b60e01b81526004810182905260240161025e565b8585016020015192506102d081600861045c565b6102dc90610100610473565b9290921c916102eb818661042a565b935050505b9250929050565b60008060006103068585610126565b90935090506001600160801b0381111561011b57604051634eb4f9fb60e01b815260040160405180910390fd5b634e487b7160e01b600052604160045260246000fd5b6000806040838503121561035c57600080fd5b823567ffffffffffffffff8082111561037457600080fd5b818501915085601f83011261038857600080fd5b81358181111561039a5761039a610333565b604051601f8201601f19908116603f011681019083821181831017156103c2576103c2610333565b816040528281528860208487010111156103db57600080fd5b826020860160208301376000602093820184015298969091013596505050505050565b634e487b7160e01b600052603260045260246000fd5b634e487b7160e01b600052601160045260246000fd5b8082018082111561043d5761043d610414565b92915050565b60006001820161045557610455610414565b5060010190565b808202811582820484141761043d5761043d610414565b8181038181111561043d5761043d61041456fea2646970667358221220170ccae283ce67266cede162e62521d8ccac74bd743703be8a7cb7d96d64a0c864736f6c63430008140033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}
