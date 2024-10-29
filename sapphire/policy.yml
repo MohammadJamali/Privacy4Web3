@@ -3,8 +3,6 @@ quotes:
     tcb_validity_period: 30
     min_tcb_evaluation_data_number: 17
 enclaves:
-    # Sapphire Localnet will always assign constant
-  - "0+tTmlVjUvP0eIHXH7Dld3svPppCUdKDwYxnzplndLea/8+uR7hI7CyvHEm0soNTHhzEJfk1grNoBuUqQ9eNGg=="
 endorsements:
   - any: {}
 fees: endorsing_node
