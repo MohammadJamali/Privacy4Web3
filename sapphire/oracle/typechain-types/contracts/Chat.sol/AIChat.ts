@@ -23,30 +23,15 @@ import type {
   TypedContractMethod,
 } from "../../common";
 
-export declare namespace AIChat {
-  export type MessageStruct = {
-    prompt: string;
-    reply: string;
-    plugin: string;
-    status: string;
-  };
-
-  export type MessageStructOutput = [
-    prompt: string,
-    reply: string,
-    plugin: string,
-    status: string
-  ] & { prompt: string; reply: string; plugin: string; status: string };
-}
-
 export interface AIChatInterface extends Interface {
   getFunction(
     nameOrSignature:
+      | "getMessage"
+      | "getProcessingMessages"
+      | "getUserHistory"
       | "history"
-      | "message"
-      | "messageCount"
-      | "messages"
       | "processPrompt"
+      | "processingMessages"
       | "roflAppID"
       | "submitAgentReply"
   ): FunctionFragment;
@@ -56,37 +41,51 @@ export interface AIChatInterface extends Interface {
   ): EventFragment;
 
   encodeFunctionData(
+    functionFragment: "getMessage",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getProcessingMessages",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getUserHistory",
+    values: [AddressLike]
+  ): string;
+  encodeFunctionData(
     functionFragment: "history",
     values: [AddressLike, BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "message",
-    values: [AddressLike, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "messageCount",
-    values: [AddressLike]
-  ): string;
-  encodeFunctionData(functionFragment: "messages", values?: undefined): string;
-  encodeFunctionData(
     functionFragment: "processPrompt",
     values: [string, string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "processingMessages",
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "roflAppID", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "submitAgentReply",
-    values: [AddressLike, BigNumberish, string]
+    values: [BigNumberish, string]
   ): string;
 
-  decodeFunctionResult(functionFragment: "history", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "message", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getMessage", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "messageCount",
+    functionFragment: "getProcessingMessages",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "messages", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getUserHistory",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "history", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "processPrompt",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "processingMessages",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "roflAppID", data: BytesLike): Result;
@@ -97,14 +96,9 @@ export interface AIChatInterface extends Interface {
 }
 
 export namespace AgentRepliedEvent {
-  export type InputTuple = [
-    user: AddressLike,
-    messageId: BigNumberish,
-    reply: string
-  ];
-  export type OutputTuple = [user: string, messageId: bigint, reply: string];
+  export type InputTuple = [messageId: BigNumberish, reply: string];
+  export type OutputTuple = [messageId: bigint, reply: string];
   export interface OutputObject {
-    user: string;
     messageId: bigint;
     reply: string;
   }
@@ -170,28 +164,21 @@ export interface AIChat extends BaseContract {
     event?: TCEvent
   ): Promise<this>;
 
+  getMessage: TypedContractMethod<
+    [messageId: BigNumberish],
+    [[string, string, string]],
+    "view"
+  >;
+
+  getProcessingMessages: TypedContractMethod<[], [bigint[]], "view">;
+
+  getUserHistory: TypedContractMethod<[user: AddressLike], [bigint[]], "view">;
+
   history: TypedContractMethod<
     [arg0: AddressLike, arg1: BigNumberish],
-    [
-      [string, string, string, string] & {
-        prompt: string;
-        reply: string;
-        plugin: string;
-        status: string;
-      }
-    ],
+    [bigint],
     "view"
   >;
-
-  message: TypedContractMethod<
-    [userId: AddressLike, messageId: BigNumberish],
-    [AIChat.MessageStructOutput],
-    "view"
-  >;
-
-  messageCount: TypedContractMethod<[arg0: AddressLike], [bigint], "view">;
-
-  messages: TypedContractMethod<[], [bigint], "view">;
 
   processPrompt: TypedContractMethod<
     [prompt: string, plugin: string],
@@ -199,10 +186,16 @@ export interface AIChat extends BaseContract {
     "nonpayable"
   >;
 
+  processingMessages: TypedContractMethod<
+    [arg0: BigNumberish],
+    [bigint],
+    "view"
+  >;
+
   roflAppID: TypedContractMethod<[], [string], "view">;
 
   submitAgentReply: TypedContractMethod<
-    [userId: AddressLike, messageId: BigNumberish, reply: string],
+    [messageId: BigNumberish, reply: string],
     [void],
     "nonpayable"
   >;
@@ -212,32 +205,25 @@ export interface AIChat extends BaseContract {
   ): T;
 
   getFunction(
+    nameOrSignature: "getMessage"
+  ): TypedContractMethod<
+    [messageId: BigNumberish],
+    [[string, string, string]],
+    "view"
+  >;
+  getFunction(
+    nameOrSignature: "getProcessingMessages"
+  ): TypedContractMethod<[], [bigint[]], "view">;
+  getFunction(
+    nameOrSignature: "getUserHistory"
+  ): TypedContractMethod<[user: AddressLike], [bigint[]], "view">;
+  getFunction(
     nameOrSignature: "history"
   ): TypedContractMethod<
     [arg0: AddressLike, arg1: BigNumberish],
-    [
-      [string, string, string, string] & {
-        prompt: string;
-        reply: string;
-        plugin: string;
-        status: string;
-      }
-    ],
+    [bigint],
     "view"
   >;
-  getFunction(
-    nameOrSignature: "message"
-  ): TypedContractMethod<
-    [userId: AddressLike, messageId: BigNumberish],
-    [AIChat.MessageStructOutput],
-    "view"
-  >;
-  getFunction(
-    nameOrSignature: "messageCount"
-  ): TypedContractMethod<[arg0: AddressLike], [bigint], "view">;
-  getFunction(
-    nameOrSignature: "messages"
-  ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
     nameOrSignature: "processPrompt"
   ): TypedContractMethod<
@@ -246,12 +232,15 @@ export interface AIChat extends BaseContract {
     "nonpayable"
   >;
   getFunction(
+    nameOrSignature: "processingMessages"
+  ): TypedContractMethod<[arg0: BigNumberish], [bigint], "view">;
+  getFunction(
     nameOrSignature: "roflAppID"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "submitAgentReply"
   ): TypedContractMethod<
-    [userId: AddressLike, messageId: BigNumberish, reply: string],
+    [messageId: BigNumberish, reply: string],
     [void],
     "nonpayable"
   >;
@@ -272,7 +261,7 @@ export interface AIChat extends BaseContract {
   >;
 
   filters: {
-    "AgentReplied(address,uint256,string)": TypedContractEvent<
+    "AgentReplied(uint256,string)": TypedContractEvent<
       AgentRepliedEvent.InputTuple,
       AgentRepliedEvent.OutputTuple,
       AgentRepliedEvent.OutputObject

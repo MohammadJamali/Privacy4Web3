@@ -6,11 +6,7 @@ import {Subcall} from "@oasisprotocol/sapphire-contracts/contracts/Subcall.sol";
 
 contract AIChat {
     event MessageSent(address indexed user, uint256 messageId);
-    event AgentReplied(
-        address indexed user,
-        uint256 indexed messageId,
-        string reply
-    );
+    event AgentReplied(uint256 indexed messageId, string reply);
 
     struct Message {
         string prompt;
@@ -20,11 +16,16 @@ contract AIChat {
     }
 
     bytes21 public roflAppID;
-    mapping(address => mapping(uint256 => Message)) public history;
-    mapping(address => uint256) public messageCount;
+    Message[] private messages; // Stores Message struct by ID
+    uint256[] public processingMessages; // Array of message IDs in processing state
+    mapping(address => uint256[]) public history; // Holds message IDs for each user
 
     constructor(bytes21 _roflAppID) {
         roflAppID = _roflAppID;
+    }
+
+    function getProcessingMessages() external view returns (uint256[] memory) {
+        return processingMessages;
     }
 
     function processPrompt(
@@ -36,46 +37,58 @@ contract AIChat {
             "Invalid prompt"
         );
 
-        uint256 messageId = messageCount[msg.sender]++;
-        history[msg.sender][messageId] = Message({
-            prompt: prompt,
-            reply: "",
-            plugin: plugin,
-            status: "Processing"
-        });
+        uint256 messageId = messages.length;
+        messages.push(
+            Message({
+                prompt: prompt,
+                reply: "",
+                plugin: plugin,
+                status: "Processing"
+            })
+        );
+
+        history[msg.sender].push(messageId);
+        processingMessages.push(messageId);
 
         emit MessageSent(msg.sender, messageId);
     }
 
-    function submitAgentReply(
-        address userId,
-        uint256 messageId,
-        string memory reply
-    ) external {
+    function submitAgentReply(uint256 messageId, string memory reply) external {
         // Subcall.roflEnsureAuthorizedOrigin(roflAppID);
 
-        require(messageId <= messageCount[userId], "Invalid message ID");
+        require(messageId < messages.length, "Invalid message ID");
 
-        history[userId][messageId].status = "Done";
-        history[userId][messageId].reply = reply;
+        messages[messageId].status = "Done";
+        messages[messageId].reply = reply;
 
-        emit AgentReplied(userId, messageId, reply);
+        for (uint256 i = 0; i < processingMessages.length; i++) {
+            if (processingMessages[i] == messageId) {
+                processingMessages[i] = processingMessages[
+                    processingMessages.length - 1
+                ];
+                processingMessages.pop();
+                break;
+            }
+        }
+
+        emit AgentReplied(messageId, reply);
     }
 
-    function messages() external view returns (uint256) {
-        return messageCount[msg.sender];
-    }
-
-    function message(
-        address userId,
+    function getMessage(
         uint256 messageId
-    ) external view returns (Message memory) {
-        // if (userId != msg.sender) {
-        //     Subcall.roflEnsureAuthorizedOrigin(roflAppID);
-        // }
+    ) external view returns (string memory, string memory, string memory) {
+        require(messageId < messages.length, "Invalid message ID");
 
-        require(messageId < messageCount[userId], "Invalid message ID");
+        return (
+            messages[messageId].prompt,
+            messages[messageId].plugin,
+            messages[messageId].reply
+        );
+    }
 
-        return history[userId][messageId];
+    function getUserHistory(
+        address user
+    ) external view returns (uint256[] memory) {
+        return history[user];
     }
 }
