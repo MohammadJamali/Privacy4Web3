@@ -244,8 +244,8 @@ print(f"Storyteller added as a trusted algorithm to`{ddo.metadata['name']}`.")
 for datatoken in [
     cats_story_datatoken,
     storyteller_datatoken,
-    # max_lora_weight_datatoken,
-    # garfield_lora_weight_datatoken,
+    max_lora_weight_datatoken,
+    garfield_lora_weight_datatoken,
 ]:
     datatoken.mint(ehsan, to_wei(10), {"from": mohammad})
 print(f"Mohammad send {datatoken.address} datatoken to ehsan")
@@ -278,7 +278,7 @@ def get_additional_dataset(plugin):
 
 
 @app.route('/Buy', methods=['GET'])
-def agent():
+def buy():
     additional_datasets = get_additional_dataset(request.args.get('plugin'))
     if not additional_datasets:
         return jsonify({'status': 'error'})
@@ -304,7 +304,7 @@ def agent():
     plugin = request.args.get('plugin')
 
     additional_datasets = []
-    if additional_datasets:
+    if plugin:
         additional_datasets = get_additional_dataset(plugin)
 
     job_id = ocean.compute.start(

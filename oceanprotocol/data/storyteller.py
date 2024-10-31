@@ -5,7 +5,6 @@ import json
 import gzip
 import pickle
 import zipfile
-from shutil import rmtree
 
 import tensorflow as tf
 from tensorflow.keras import layers
@@ -279,7 +278,7 @@ def load_model(local=False):
     archive_path, plugin_path = None, None
     if local:
         print("Using local `cat_story` base model and `garfield` plugin-in")
-        plugin_path = 'plugin.lora.garfield'
+        plugin_path = 'plugin.garfield.lora'
         archive_path = 'model.cat_story.zip'
     else:
         dids = os.getenv("DIDS", None)
@@ -349,7 +348,7 @@ def apply_weights(model, weights):
     return model
 
 
-def write_output(output: str):
+def write_output(output: str, local=False):
     print("Writing output...")
     filename = "output.txt" if local else "/data/outputs/result"
     with open(filename, "w") as f:
@@ -367,7 +366,7 @@ def run_algo(local):
         model = apply_weights(model, plugin)
 
     output = generate(prompt, model, tokenizer, 20)
-    write_output(output)
+    write_output(output, local)
 
 
 def get_filepaths(directory):
@@ -384,5 +383,4 @@ if __name__ == '__main__':
     print("/data\n", '\n'.join(get_filepaths('/data')))
 
     local = len(sys.argv) == 2 and sys.argv[1] == "local"
-
     run_algo(local)

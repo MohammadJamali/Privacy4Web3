@@ -5,6 +5,7 @@ use oasis_runtime_sdk::modules::rofl::app::prelude::*;
 use std::sync::Arc;
 use oasis_runtime_sdk::crypto::signature::secp256k1;
 use oasis_runtime_sdk::types::address::SignatureAddressSpec;
+use urlencoding::encode;
 
 const ORACLE_CONTRACT_ADDRESS: &str = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
@@ -30,7 +31,7 @@ impl App for AIChatOracleApp {
     }
 
     async fn run(self: Arc<Self>, _env: Environment<Self>) {
-        // println!("AIChatOracleApp - ROFL chat service running...");
+        println!("AIChatOracleApp - ROFL chat service running...");
     }
 
     async fn on_runtime_block(self: Arc<Self>, env: Environment<Self>, _round: u64) {
@@ -46,6 +47,7 @@ impl AIChatOracleApp {
 
         if unprocessed_messages.is_empty() {
             println!("AIChatOracleApp - No unprocessed messages");
+            return Ok(());
         }
 
         for message_id in unprocessed_messages {
@@ -131,7 +133,7 @@ impl AIChatOracleApp {
             ParamType::String, // _prompt
             ParamType::String, // _plugin
             ParamType::String, // _reply
-        ], &res).map_err(|e| anyhow::anyhow!("Failed to decode response: {}", e))?;
+        ], &res).map_err(|e| anyhow::anyhow!("AIChatOracleApp - Failed to decode response: {}", e))?;
 
         let message = Message {
             prompt: decoded[0].clone().into_string().unwrap(),
@@ -143,7 +145,10 @@ impl AIChatOracleApp {
     }
 
     async fn get_agent_reply(self: Arc<Self>, message: Message) -> Result<String> {
-        let api_url = format!("http://192.168.1.14:2266/Agent?prompt={}&plugin={}", message.prompt, message.plugin);
+        let encoded_prompt = encode(&message.prompt);
+        let encoded_plugin = encode(&message.plugin);
+
+        let api_url = format!("http://192.168.1.14:2266/Agent?prompt={}&plugin={}", encoded_prompt, encoded_plugin);
 
         let cfg = ureq::AgentConfig {
             https_only: false,
@@ -151,18 +156,14 @@ impl AIChatOracleApp {
             ..Default::default()
         };
         let agent = rofl_utils::https::agent_with_config(cfg);
-
         let reply = tokio::task::spawn_blocking(move || -> Result<String> {
-            // Step 1: Send the POST request
-            let mut response = agent
+            let rsp: String = agent
                 .get(api_url)
-                .call()
-                .unwrap();
+                .call()?
+                .body_mut()
+                .read_to_string()?;
 
-            assert_eq!(response.status(), 200);
-
-            let response = response.body_mut().read_to_string().unwrap();
-            Ok(response)
+            Ok(rsp)
         }).await??;
 
         Ok(reply)
