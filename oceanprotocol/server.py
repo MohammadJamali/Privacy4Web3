@@ -269,9 +269,9 @@ app = Flask(__name__)
 
 
 def get_additional_dataset(plugin):
-    if plugin == 'max':
+    if plugin == 'did:op:4041a010552158d2343a031579e06074ddd7175a81c32a40e340657d54b0a54d':
         return [max_lora_weight_compute_input]
-    elif plugin == 'garfield':
+    elif plugin == 'did:op:2a92e2d5ac02dece1946136dfb541807fbf758cd4df9febcf290067a2762b0f2':
         return [garfield_lora_weight_compute_input]
 
     return None

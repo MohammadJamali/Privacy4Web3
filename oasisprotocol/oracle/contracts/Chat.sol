@@ -31,7 +31,7 @@ contract AIChat {
     function processPrompt(
         string memory prompt,
         string memory plugin
-    ) external {
+    ) external returns (uint256) {
         require(
             bytes(prompt).length > 0 && bytes(prompt).length <= 280,
             "Invalid prompt"
@@ -51,6 +51,8 @@ contract AIChat {
         processingMessages.push(messageId);
 
         emit MessageSent(msg.sender, messageId);
+
+        return messageId;
     }
 
     function submitAgentReply(uint256 messageId, string memory reply) external {

@@ -51,7 +51,7 @@ impl AIChatOracleApp {
         }
 
         for message_id in unprocessed_messages {
-            // println!("AIChatOracleApp - Fetching message #{:?}", message_id);
+            println!("AIChatOracleApp - Processing message #{:?}", message_id);
             let message = self.clone().get_message_details(env.clone(), message_id).await?;
             let reply = self.clone().get_agent_reply(message).await?;
             self.clone().submit_agent_reply(env.clone(), message_id, reply).await?;

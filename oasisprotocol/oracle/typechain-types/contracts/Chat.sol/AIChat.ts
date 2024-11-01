@@ -182,7 +182,7 @@ export interface AIChat extends BaseContract {
 
   processPrompt: TypedContractMethod<
     [prompt: string, plugin: string],
-    [void],
+    [bigint],
     "nonpayable"
   >;
 
@@ -228,7 +228,7 @@ export interface AIChat extends BaseContract {
     nameOrSignature: "processPrompt"
   ): TypedContractMethod<
     [prompt: string, plugin: string],
-    [void],
+    [bigint],
     "nonpayable"
   >;
   getFunction(
